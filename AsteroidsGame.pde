@@ -6,28 +6,28 @@ boolean wPressed = false;
 boolean rPressed = false;
 boolean lPressed = false;
 
-public void setup() 
+public void setup()
 {
   size(800, 800);
   background(0);
   ilyaSpaceship = new Spaceship(width/2, height/2);
-  for (int i = 0; i < stars.length; i++){
+  for (int i = 0; i < stars.length; i++) {
     stars[i] = new Star();
   }
 }
-public void draw() 
+public void draw()
 {
   background(0);
-  for (int i = 0; i < stars.length; i++){
+  for (int i = 0; i < stars.length; i++) {
     stars[i].show();
   }
-  if (wPressed == true){
+  if (wPressed == true) {
     ilyaSpaceship.accelerate(0.5);
   }
-  if (rPressed == true){
+  if (rPressed == true) {
     ilyaSpaceship.turn(10);
   }
-  if (lPressed == true){
+  if (lPressed == true) {
     ilyaSpaceship.turn(-10);
   }
   ilyaSpaceship.show();
@@ -35,17 +35,17 @@ public void draw()
 }
 
 public void keyPressed() {
-  if (key == 'w') {
+  if (key == 'w' || key == 'W') {
     wPressed = true;
   }
-  if (key == 'r') {
+  if (key == 'r' || key == 'R') {
     rPressed = true;
   }
-  if (key == 'l') {
+  if (key == 'l' || key == 'L') {
     lPressed = true;
   }
-  if (key == 'h') {
-    ilyaSpaceship.setCenterX(Math.random()*800);
+  if (key == 'h' || key == 'H') {
+     ilyaSpaceship.setCenterX(Math.random()*800);
     ilyaSpaceship.setCenterY(Math.random()*800);
     ilyaSpaceship.turn(Math.random()*361);
     ilyaSpaceship.setXspeed(0);
@@ -53,15 +53,14 @@ public void keyPressed() {
   }
 }
 
-public void keyReleased(){
-  if (key == 'w'){
+public void keyReleased() {
+  if (key == 'w' || key == 'W') {
     wPressed = false;
   }
-  if (key == 'r') {
+  if (key == 'r' || key == 'R') {
     rPressed = false;
   }
-  if (key == 'l') {
+  if (key == 'l' || key == 'L') {
     lPressed = false;
   }
-  
 }
