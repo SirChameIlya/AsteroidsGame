@@ -7,8 +7,8 @@ class Star //note that this class does NOT extend Floater
   protected double myG;
   protected double myB;
   public Star(){
-    myCenterX = Math.random()*800;
-    myCenterY = Math.random()*800;
+    myCenterX = Math.random()*600;
+    myCenterY = Math.random()*600;
     radius = Math.random()*6 + 5;
     myR = Math.random()*256;
     myG = Math.random()*256;
