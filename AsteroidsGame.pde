@@ -8,7 +8,7 @@ boolean lPressed = false;
 
 public void setup()
 {
-  size(800, 800);
+  size(600, 600);
   background(0);
   ilyaSpaceship = new Spaceship(width/2, height/2);
   for (int i = 0; i < stars.length; i++) {
@@ -45,8 +45,8 @@ public void keyPressed() {
     lPressed = true;
   }
   if (key == 'h' || key == 'H') {
-     ilyaSpaceship.setCenterX(Math.random()*800);
-    ilyaSpaceship.setCenterY(Math.random()*800);
+     ilyaSpaceship.setCenterX(Math.random()*600);
+    ilyaSpaceship.setCenterY(Math.random()*600);
     ilyaSpaceship.turn(Math.random()*361);
     ilyaSpaceship.setXspeed(0);
     ilyaSpaceship.setYspeed(0);
