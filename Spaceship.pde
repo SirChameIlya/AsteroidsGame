@@ -24,6 +24,12 @@ class Spaceship extends Floater
   public void setCenterY(double y) {
     myCenterY = y;
   }
+  public double getX() {
+    return myCenterX;
+  }
+  public double getY() {
+    return myCenterY;
+  }
   public void show ()  //Draws the floater at the current position
   {
     fill(myColor);
@@ -45,7 +51,7 @@ class Spaceship extends Floater
       vertex(xCorners[nI], yCorners[nI]);
     }
     endShape(CLOSE);
-    if (wPressed == true) {
+    if (wPressed == true || sPressed == true) {
       rect(-30, -5, 12, 2);
       rect(-30, 0, 12, 2);
       rect(-30, 5, 12, 2);
