@@ -58,9 +58,14 @@ public void draw()
         asteroids.remove(i);
         asteroids.add(new SmallAsteroid());
         i--;
+        fill(255);
+        textSize(25);
+        textAlign(CENTER);
+        text("Test", width/2, 90);
       } else {
         asteroids.remove(i);
         asteroids.add(new Asteroid());
+        i--;
       }
       sum++;
     }
