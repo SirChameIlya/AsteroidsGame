@@ -18,6 +18,7 @@ class Star //note that this class does NOT extend Floater
   public void show() {
     strokeWeight(0);
     fill((float)myR, (float)myG, (float)myB);
+    stroke((float)myR, (float)myG, (float)myB);
     //credit to William Chung for code to draw the star
     beginShape();
     vertex((float)myCenterX-1, (float) myCenterY+1);
