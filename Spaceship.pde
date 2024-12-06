@@ -1,105 +1,63 @@
-//your variable declarations here
-Spaceship ilyaSpaceship;
-Star[] stars = new Star[200];
-ArrayList <Asteroid> asteroids = new ArrayList <Asteroid>();
-
-boolean wPressed = false;
-boolean aPressed = false;
-boolean dPressed = false;
-boolean sPressed = false;
-
-int sum = 0;
-
-public void setup()
+class Spaceship extends Floater
 {
-  size(600, 600);
-  background(0);
-  ilyaSpaceship = new Spaceship(width/2, height/2);
-  for (int i = 0; i < stars.length; i++) {
-    stars[i] = new Star();
+  //your code here
+  public Spaceship(double x, double y) {
+    corners = 14;  //the number of corners, a triangular floater has 3
+    xCorners = new int[]{ -13, -15, -10, -5, -7, 7, 7, 20, 7, 7, -7, -5, -10, -15, -13};
+    yCorners = new int[]{ 0, 10, 5, 5, 15, 10, 5, 0, -5, -10, -15, -5, -5, -10, 0};
+    myColor = color(255);
+    myCenterX = x;
+    myCenterY = y; //holds center coordinates
+    myXspeed = 0;
+    myYspeed = 0; //holds the speed of travel in the x and y directions
+    myPointDirection = 0; //holds current direction the ship is pointing in degrees
   }
-  for (int i = 0; i < 5; i++) {
-    asteroids.add(new Asteroid());
+  public void setXspeed(double x) {
+    myXspeed = x;
   }
-  for (int i = 5; i < 10; i++) {
-    asteroids.add(new SmallAsteroid());
+  public void setYspeed(double y) {
+    myYspeed = y;
   }
-}
-public void draw()
-{
-  background(0);
-  fill(255);
-  textSize(25);
-  textAlign(CENTER);
-  text("Asteroids destroyed: " + sum, width/2, 30);
-  for (int i = 0; i < stars.length; i++) {
-    stars[i].show();
+  public void setCenterX(double x) {
+    myCenterX = x;
   }
-  if (wPressed == true) {
-    ilyaSpaceship.accelerate(0.1);
+  public void setCenterY(double y) {
+    myCenterY = y;
   }
-  if (sPressed == true) {
-    ilyaSpaceship.accelerate(-0.1);
+  public double getX() {
+    return myCenterX;
   }
-  if (dPressed == true) {
-    ilyaSpaceship.turn(5);
+  public double getY() {
+    return myCenterY;
   }
-  if (aPressed == true) {
-    ilyaSpaceship.turn(-5);
-  }
-  ilyaSpaceship.move();
-  ilyaSpaceship.show();
+  public void show ()  //Draws the floater at the current position
+  {
+    fill(myColor);
+    stroke(myColor);
 
-  for (int i = 0; i < asteroids.size(); i++) {
-    asteroids.get(i).move();
-    asteroids.get(i).show();
-    if (dist((float)asteroids.get(i).getX(), (float)asteroids.get(i).getY(), (float)ilyaSpaceship.getX(), (float)ilyaSpaceship.getY()) < 20) {
-      if (asteroids.get(i) instanceof SmallAsteroid == true) {
-        asteroids.remove(i);
-        asteroids.add(new SmallAsteroid());
-        i--;
-      } else {
-        asteroids.remove(i);
-        asteroids.add(new Asteroid());
-      }
-      sum++;
+    //translate the (x,y) center of the ship to the correct position
+    translate((float)myCenterX, (float)myCenterY);
+
+    //convert degrees to radians for rotate()
+    float dRadians = (float)(myPointDirection*(Math.PI/180));
+
+    //rotate so that the polygon will be drawn in the correct direction
+    rotate(dRadians);
+
+    //draw the polygon
+    beginShape();
+    for (int nI = 0; nI < corners; nI++)
+    {
+      vertex(xCorners[nI], yCorners[nI]);
     }
-  }
-}
-
-public void keyPressed() {
-  if (key == 'w' || key == 'W') {
-    wPressed = true;
-  }
-   if (key == 's' || key == 'S') {
-    sPressed = true;
-  }
-  if (key == 'd' || key == 'D') {
-    dPressed = true;
-  }
-  if (key == 'a' || key == 'A') {
-    aPressed = true;
-  }
-  if (key == 'h' || key == 'H') {
-    ilyaSpaceship.setCenterX(Math.random()*600);
-    ilyaSpaceship.setCenterY(Math.random()*600);
-    ilyaSpaceship.turn(Math.random()*361);
-    ilyaSpaceship.setXspeed(0);
-    ilyaSpaceship.setYspeed(0);
-  }
-}
-
-public void keyReleased() {
-  if (key == 'w' || key == 'W') {
-    wPressed = false;
-  }
-   if (key == 's' || key == 'S') {
-    sPressed = false;
-  }
-  if (key == 'd' || key == 'D') {
-    dPressed = false;
-  }
-  if (key == 'a' || key == 'A') {
-    aPressed = false;
+    endShape(CLOSE);
+    if (wPressed == true || sPressed == true) {
+      rect(-30, -5, 12, 2);
+      rect(-30, 0, 12, 2);
+      rect(-30, 5, 12, 2);
+    }
+    //"unrotate" and "untranslate" in reverse order
+    rotate(-1*dRadians);
+    translate(-1*(float)myCenterX, -1*(float)myCenterY);
   }
 }
