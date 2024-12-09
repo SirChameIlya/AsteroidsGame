@@ -1,105 +1,51 @@
-//your variable declarations here
-Spaceship ilyaSpaceship;
-Star[] stars = new Star[200];
-ArrayList <Asteroid> asteroids = new ArrayList <Asteroid>();
+class Asteroid extends Floater {
+  double rotSpeed;
+  boolean smallAsteroid;
+  public Asteroid() {
+    corners = 8;
+    xCorners = new int[]{20, 16, 6, -4, -16, -16, -12, 12};
+    yCorners = new int[]{0, 16, 12, 14, 14, -8, -14, -18};
+    myColor = color(125);
+    myCenterX = Math.random()*501+50;
+    myCenterY = Math.random()*501+50; //holds center coordinates
+    myXspeed = Math.random()*3;
+    myYspeed = Math.random()*3; //holds the speed of travel in the x and y directions
+    rotSpeed = Math.random()*3;
+    myPointDirection = Math.random()*361; //holds current direction the ship is pointing in degrees
+    smallAsteroid = false;
+  }
 
-boolean wPressed = false;
-boolean aPressed = false;
-boolean dPressed = false;
-boolean sPressed = false;
+  public double getX() {
+    return myCenterX;
+  }
+  public double getY() {
+    return myCenterY;
+  }
 
-int sum = 0;
+  public boolean getSmallAsteroid(){
+    return smallAsteroid;
+  }
+  
+  public void move() {
+    //change the x and y coordinates by myXspeed and myYspeed
+    myCenterX += myXspeed;
+    myCenterY += myYspeed;
+    myPointDirection += rotSpeed;
 
-public void setup()
-{
-  size(600, 600);
-  background(0);
-  ilyaSpaceship = new Spaceship(width/2, height/2);
-  for (int i = 0; i < stars.length; i++) {
-    stars[i] = new Star();
-  }
-  for (int i = 0; i < 5; i++) {
-    asteroids.add(new Asteroid());
-  }
-  for (int i = 5; i < 10; i++) {
-    asteroids.add(new SmallAsteroid());
-  }
-}
-public void draw()
-{
-  background(0);
-  fill(255);
-  textSize(25);
-  textAlign(CENTER);
-  text("Asteroids destroyed: " + sum, width/2, 30);
-  for (int i = 0; i < stars.length; i++) {
-    stars[i].show();
-  }
-  if (wPressed == true) {
-    ilyaSpaceship.accelerate(0.1);
-  }
-  if (sPressed == true) {
-    ilyaSpaceship.accelerate(-0.1);
-  }
-  if (dPressed == true) {
-    ilyaSpaceship.turn(5);
-  }
-  if (aPressed == true) {
-    ilyaSpaceship.turn(-5);
-  }
-  ilyaSpaceship.move();
-  ilyaSpaceship.show();
-
-  for (int i = 0; i < asteroids.size(); i++) {
-    asteroids.get(i).move();
-    asteroids.get(i).show();
-    if (dist((float)asteroids.get(i).getX(), (float)asteroids.get(i).getY(), (float)ilyaSpaceship.getX(), (float)ilyaSpaceship.getY()) < 20) {
-      if (asteroids.get(i).getSmallAsteroid() ==  true) {
-        asteroids.remove(i);
-        asteroids.add(new SmallAsteroid());
-        i--;
-      } else {
-        asteroids.remove(i);
-        asteroids.add(new Asteroid());
-      }
-      sum++;
+    //wrap around screen
+    if (myCenterX > width)
+    {
+      myCenterX = 0;
+    } else if (myCenterX<0)
+    {
+      myCenterX = width;
     }
-  }
-}
-
-public void keyPressed() {
-  if (key == 'w' || key == 'W') {
-    wPressed = true;
-  }
-   if (key == 's' || key == 'S') {
-    sPressed = true;
-  }
-  if (key == 'd' || key == 'D') {
-    dPressed = true;
-  }
-  if (key == 'a' || key == 'A') {
-    aPressed = true;
-  }
-  if (key == 'h' || key == 'H') {
-    ilyaSpaceship.setCenterX(Math.random()*600);
-    ilyaSpaceship.setCenterY(Math.random()*600);
-    ilyaSpaceship.turn(Math.random()*361);
-    ilyaSpaceship.setXspeed(0);
-    ilyaSpaceship.setYspeed(0);
-  }
-}
-
-public void keyReleased() {
-  if (key == 'w' || key == 'W') {
-    wPressed = false;
-  }
-   if (key == 's' || key == 'S') {
-    sPressed = false;
-  }
-  if (key == 'd' || key == 'D') {
-    dPressed = false;
-  }
-  if (key == 'a' || key == 'A') {
-    aPressed = false;
+    if (myCenterY >height)
+    {
+      myCenterY = 0;
+    } else if (myCenterY < 0)
+    {
+      myCenterY = height;
+    }
   }
 }
