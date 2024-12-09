@@ -54,18 +54,13 @@ public void draw()
     asteroids.get(i).move();
     asteroids.get(i).show();
     if (dist((float)asteroids.get(i).getX(), (float)asteroids.get(i).getY(), (float)ilyaSpaceship.getX(), (float)ilyaSpaceship.getY()) < 20) {
-      if (asteroids.get(i) instanceof SmallAsteroid == true) {
+      if (asteroids.get(i).getSmallAsteroid() ==  true) {
         asteroids.remove(i);
         asteroids.add(new SmallAsteroid());
         i--;
-        fill(255);
-        textSize(25);
-        textAlign(CENTER);
-        text("Test", width/2, 90);
       } else {
         asteroids.remove(i);
         asteroids.add(new Asteroid());
-        i--;
       }
       sum++;
     }
