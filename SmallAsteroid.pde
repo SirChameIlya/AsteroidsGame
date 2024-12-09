@@ -10,6 +10,7 @@ class SmallAsteroid extends Asteroid {
     myYspeed = Math.random()*3; //holds the speed of travel in the x and y directions
     rotSpeed = Math.random()*3;
     myPointDirection = Math.random()*361; //holds current direction the ship is pointing in degrees
+    smallAsteroid = true;
   }
   
 }
