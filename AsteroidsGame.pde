@@ -2,6 +2,7 @@
 Spaceship ilyaSpaceship;
 Star[] stars = new Star[200];
 ArrayList <Asteroid> asteroids = new ArrayList <Asteroid>();
+ArrayList <Bullet> bullets = new ArrayList <Bullet>();
 
 boolean wPressed = false;
 boolean aPressed = false;
@@ -65,6 +66,18 @@ public void draw()
       sum++;
     }
   }
+  for (int i = 0; i < bullets.size(); i++){
+    bullets.get(i).show();
+    bullets.get(i).move();
+    for (int j = 0; i < asteroids.size(); j++){
+      if (dist((float)asteroids.get(j).getX(), (float)asteroids.get(j).getY(), (float)bullets.get(i).getX(), (float)bullets.get(i).getY()) < 10 ) {
+        asteroids.remove(j);
+        bullets.remove(i);
+        sum++;
+        break;
+      }
+    }
+  }
 }
 
 public void keyPressed() {
@@ -86,6 +99,9 @@ public void keyPressed() {
     ilyaSpaceship.turn(Math.random()*361);
     ilyaSpaceship.setXspeed(0);
     ilyaSpaceship.setYspeed(0);
+  }
+  if (key == ' '){
+    bullets.add(new Bullet(ilyaSpaceship));
   }
 }
 
