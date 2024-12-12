@@ -11,7 +11,8 @@ class Bullet extends Floater {
 
   public void show() {
     fill(myColor);
-    ellipse((float)myCenterX, (float)myCenterY, 10, 10);
+    //ellipse((float)myCenterX, (float)myCenterY, 10, 10);
+    image(img,(float)myCenterX,(float)myCenterY, 25,25);
   }
 
   public void move ()   //move the floater in the current direction of travel
@@ -28,4 +29,3 @@ class Bullet extends Floater {
     return myCenterY;
   }
 }
-
